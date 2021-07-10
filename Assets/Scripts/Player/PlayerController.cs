@@ -6,6 +6,7 @@ using System.Linq;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerSettingsSO playerSettings;
+    [SerializeField] private InputHandlerSO inputHandler;
 
     private PolygonCollider2D _collider;
     private MeshFilter _meshFilter;
@@ -20,53 +21,55 @@ public class PlayerController : MonoBehaviour
         _meshGenerator = new Utility.Meshes.GenerateMesh(_collider.points, _meshFilter);
     }
 
+    Vector2 inputVector;
     private void Update()
     {
+        inputHandler.onUpdateInternal();
+        inputVector = inputHandler.GetInputVector();
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Shoot(playerSettings.projectilePrefab);
+        }
+
+        MovePlayer(inputVector, playerSettings.moveSpeed, playerSettings.acceleration, Time.deltaTime);
+
         if (Input.GetKeyDown(KeyCode.J))
         {
-            IncreaseSizeOfMesh();
+            IncreaseSize(0.1f);
         }
-
-        if (Input.GetKeyDown(KeyCode.K))
+        else if (Input.GetKeyDown(KeyCode.K))
         {
-            ReduceSizeOfMesh();
+            DecreaseSize(0.1f);
         }
     }
 
-    private void IncreaseSizeOfMesh()
+    private void MovePlayer(Vector2 direction, float speed, float acceleration, float deltaTime)
     {
-        Vector2[] points = _collider.points;
+        var transform = GetComponent<Transform>();
 
-        for (int i = 0; i < points.Length; i++)
-        {
-            var dirToCenter = (points[i] - (Vector2)_collider.bounds.center).normalized;
-
-            points[i] += new Vector2(Random.Range(0.01f, 0.2f) * dirToCenter.x, Random.Range(0.01f, 0.2f) * dirToCenter.y);
-        }
-
-        _collider.SetPath(0, points);
-
-        Debug.Log("Increase Mesh Size");
+        transform.position = Vector2.Lerp(transform.position, (Vector2)transform.position + direction * speed, acceleration * deltaTime);
     }
 
-    private void ReduceSizeOfMesh()
+    private void Shoot(GameObject projectilePrefab)
     {
-        Vector2[] points = _collider.points;
+        DecreaseSize(playerSettings.shotCost);
+        
+        var projectileObject = Instantiate(projectilePrefab);
+        projectileObject.transform.SetParent(null);
+        projectileObject.transform.position = transform.position;
 
-        for (int i = 0; i < points.Length; i++)
-        {
-            var dirToCenter = (points[i] - (Vector2)_collider.bounds.center).normalized;
-
-            points[i] -= new Vector2(Random.Range(0.01f, 0.2f) * dirToCenter.x, Random.Range(0.01f, 0.2f) * dirToCenter.y);
-        }
-
-        _collider.SetPath(0, points);
-
-        Debug.Log("Reduce Mesh Size");
+        var projectile = projectileObject.GetComponent<Projectile>();
+        projectile.Init(playerSettings.projectileSettings);
     }
 
-    private void LateUpdate()
+    public void IncreaseSize(float amount)
     {
-        _meshGenerator = new Utility.Meshes.GenerateMesh(_collider.points, _meshFilter);
+        transform.localScale += new Vector3(amount, amount, 0);
+    }
+
+    public void DecreaseSize(float amount)
+    {
+        transform.localScale -= new Vector3(amount, amount, 0);
     }
 }

@@ -7,4 +7,7 @@ public class PlayerSettingsSO : ScriptableObject
 {
     public float moveSpeed = 1;
     public float acceleration = 1;
+    public float shotCost = 0.1f;
+    public GameObject projectilePrefab = null;
+    public ProjectileSettingsSO projectileSettings = null;
 }

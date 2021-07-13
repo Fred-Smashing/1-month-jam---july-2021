@@ -9,7 +9,10 @@ public class Projectile : MonoBehaviour
     public void Init(ProjectileSettingsSO projectileSettings)
     {
         settings = projectileSettings;
-        transform.localScale = projectileSettings.scale;
+
+        transform.localScale = settings.scale;
+
+        GetComponent<SpriteRenderer>().color = settings.projectileColor;
     }
 
     private void Update()
@@ -33,7 +36,7 @@ public class Projectile : MonoBehaviour
     private void DestroyOffScreen()
     {
         Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        if (screenPos.x > Screen.width + 100 || screenPos.x < -100)
+        if (screenPos.x > Screen.width + 200 || screenPos.x < -200)
         {
             Destroy(this.gameObject);
         }

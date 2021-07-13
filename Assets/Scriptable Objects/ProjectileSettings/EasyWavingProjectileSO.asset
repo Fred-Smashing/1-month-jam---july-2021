@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 385a59102d760384cb5d4bd24259615c, type: 3}
-  m_Name: PlayerProjectilesSO
+  m_Name: EasyWavingProjectileSO
   m_EditorClassIdentifier: 
-  projectileColor: {r: 0.49803922, g: 0.8117647, b: 0.47058824, a: 1}
+  projectileColor: {r: 1, g: 0.11284234, b: 0, a: 1}
   scale: {x: 0.2, y: 0.2}
-  direction: {x: 1, y: 0}
-  speed: 6
-  useSine: 0
-  sineAmplitude: 3
-  sineFrequency: 10
-  preserveMomentum: 1
+  direction: {x: -1, y: 0}
+  speed: 2
+  useSine: 1
+  sineAmplitude: 1
+  sineFrequency: 1
+  preserveMomentum: 0

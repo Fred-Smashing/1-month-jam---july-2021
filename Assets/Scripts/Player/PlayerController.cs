@@ -13,10 +13,19 @@ public class PlayerController : MonoBehaviour
 
     private Utility.Meshes.GenerateMesh _meshGenerator;
 
+    private Transform shotPosition;
+
     private void Awake()
     {
-        _collider = GetComponent<PolygonCollider2D>();
-        _meshFilter = GetComponent<MeshFilter>();
+        InitMeshDrawingComponents();
+
+        shotPosition = GameObject.Find("ShotPosition").transform;
+    }
+
+    private void InitMeshDrawingComponents()
+    {
+        if (_collider == null) { _collider = GetComponent<PolygonCollider2D>(); }
+        if (_meshFilter == null) { _meshFilter = GetComponent<MeshFilter>(); }
 
         _meshGenerator = new Utility.Meshes.GenerateMesh(_collider.points, _meshFilter);
     }
@@ -29,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            Shoot(playerSettings.projectilePrefab);
+            Shoot(playerSettings.projectilePrefab, inputVector);
         }
 
         MovePlayer(inputVector, playerSettings.moveSpeed, playerSettings.acceleration, Time.deltaTime);
@@ -48,16 +57,31 @@ public class PlayerController : MonoBehaviour
     {
         var transform = GetComponent<Transform>();
 
-        transform.position = Vector2.Lerp(transform.position, (Vector2)transform.position + direction * speed, acceleration * deltaTime);
+        var move = Vector2.Lerp(transform.position, (Vector2)transform.position + direction * speed, acceleration * deltaTime);
+
+        var screenTopLeft = Camera.main.ScreenToWorldPoint(Vector2.zero);
+        var screenBotRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+
+        var halfSize = new Vector2(_collider.bounds.size.x / 2,
+                                    _collider.bounds.size.y / 2);
+
+        move.x = Mathf.Clamp(move.x,
+                            screenTopLeft.x + halfSize.x,
+                            screenBotRight.x - halfSize.x);
+        move.y = Mathf.Clamp(move.y,
+                            screenTopLeft.y + halfSize.y,
+                            screenBotRight.y - halfSize.y);
+
+        transform.position = move;
     }
 
-    private void Shoot(GameObject projectilePrefab)
+    private void Shoot(GameObject projectilePrefab, Vector2 inputVector)
     {
-        DecreaseSize(playerSettings.shotCost);
-        
+        //DecreaseSize(playerSettings.shotCost);
+
         var projectileObject = Instantiate(projectilePrefab);
         projectileObject.transform.SetParent(null);
-        projectileObject.transform.position = transform.position;
+        projectileObject.transform.position = shotPosition.position;
 
         var projectile = projectileObject.GetComponent<Projectile>();
         projectile.Init(playerSettings.projectileSettings);
@@ -71,5 +95,10 @@ public class PlayerController : MonoBehaviour
     public void DecreaseSize(float amount)
     {
         transform.localScale -= new Vector3(amount, amount, 0);
+    }
+
+    public void ExternalUpdateMesh()
+    {
+        InitMeshDrawingComponents();
     }
 }

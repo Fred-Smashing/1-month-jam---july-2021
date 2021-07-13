@@ -20,6 +20,7 @@ public class Projectile : MonoBehaviour
 
         trail.startColor = settings.projectileColor;
         trail.endColor = settings.projectileColor;
+        trail.time = settings.trailLength;
     }
 
     float time = 0;

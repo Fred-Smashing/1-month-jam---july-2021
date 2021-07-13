@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EasyStraightProjectileSO
   m_EditorClassIdentifier: 
   projectileColor: {r: 1, g: 0.335008, b: 0, a: 1}
+  trailLength: 0.5
   scale: {x: 0.2, y: 0.2}
   direction: {x: -1, y: 0}
   speed: 2

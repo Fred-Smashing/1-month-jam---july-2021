@@ -6,6 +6,7 @@ using UnityEngine;
 public class ProjectileSettingsSO : ScriptableObject
 {
     public Color projectileColor = Color.white;
+    public float trailLength = 0.5f;
     public Vector2 scale = new Vector2(1, 1);
     public Vector2 direction = Vector2.right;
     public float speed;

@@ -51,6 +51,15 @@ public class PlayerController : MonoBehaviour
         {
             DecreaseSize(0.1f);
         }
+
+        //List<(int, int)> list = new List<(int, int)>();
+
+        //list.Add((1, 1));
+        //list.Add((2, 1));
+        //list.Add((3, 5));
+        //list.Add((4, 10));
+
+        //Debug.Log(Utility.RandomTools.PickRandomWeightedItem.PickRandomItemWeighted(list));
     }
 
     private void MovePlayer(Vector2 direction, float speed, float acceleration, float deltaTime)

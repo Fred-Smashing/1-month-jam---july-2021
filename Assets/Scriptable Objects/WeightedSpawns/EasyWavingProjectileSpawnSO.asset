@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8c1c63da104bf4787ffc4a6b6e814a, type: 3}
   m_Name: EasyWavingProjectileSpawnSO
   m_EditorClassIdentifier: 
-  weight: 1
+  weight: 4
   prefab: {fileID: 521549819301778894, guid: 109f09f5ef962ab438a0f306e984134e, type: 3}
   isProjectile: 1
   projectileSettings: {fileID: 11400000, guid: ec779b050c97aaa418f1900266501dae, type: 2}

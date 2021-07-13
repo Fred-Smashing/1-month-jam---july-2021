@@ -9,16 +9,8 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(SpawnTimer(difficultySettings.TimeBetweenSpawns));
-
-        foreach(var _object in difficultySettings.possibleSpawns)
-        {
-            prefabList.Add(_object.prefab);
-            weightList.Add(_object.weight);
-        }
     }
 
-    private List<GameObject> prefabList = new List<GameObject>();
-    private List<int> weightList = new List<int>();
     private void SpawnEnemy()
     {
         List<(GameObject, int)> items = new List<(GameObject, int)>();

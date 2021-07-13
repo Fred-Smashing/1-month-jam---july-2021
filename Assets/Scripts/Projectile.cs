@@ -13,14 +13,26 @@ public class Projectile : MonoBehaviour
         transform.localScale = settings.scale;
 
         GetComponent<SpriteRenderer>().color = settings.projectileColor;
+
+        var trail = GetComponent<TrailRenderer>();
+
+        trail.startWidth = settings.scale.x;
+
+        trail.startColor = settings.projectileColor;
+        trail.endColor = settings.projectileColor;
     }
 
+    float time = 0;
     private void Update()
     {
+        time += Time.deltaTime;
+
         if (settings.useSine)
         {
+            var sine = Mathf.Sin(settings.sineFrequency * time) * settings.sineAmplitude;
+
             transform.position += new Vector3(settings.direction.x * settings.speed,
-                                            Mathf.Sin(settings.sineFrequency * Time.time) * settings.sineAmplitude,
+                                            sine,
                                             0) * Time.deltaTime;
         }
         else

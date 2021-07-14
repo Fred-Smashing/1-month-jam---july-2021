@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 385a59102d760384cb5d4bd24259615c, type: 3}
-  m_Name: EasyWavingProjectileSO
+  m_Name: EasyWavingProjectileSettingsSO
   m_EditorClassIdentifier: 
   projectileColor: {r: 1, g: 0.11284234, b: 0, a: 1}
   trailLength: 0.5

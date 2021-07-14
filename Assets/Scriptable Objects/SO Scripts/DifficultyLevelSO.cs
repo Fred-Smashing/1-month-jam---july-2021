@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DifficultyLevelSettingsSO", menuName = "Game/ScriptableObjects/Difficulty Level Settings")]
 public class DifficultyLevelSO : ScriptableObject
 {
-    public float TimeBetweenSpawns = 1f;
-    public List<WeightedSpawnableObjectSO> possibleSpawns = new List<WeightedSpawnableObjectSO>();
+    public float TimeBetweenSpawnSequences = 1f;
+    public List<WeightedSpawnSequenceSO> possibleSpawns = new List<WeightedSpawnSequenceSO>();
 }

@@ -24,11 +24,20 @@ public class Spawner : MonoBehaviour
         minheight = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y;
     }
 
+    WeightedSpawnSequenceSO previousSequence = null;
     private void SelectSpawnSequence()
     {
         var spawnSequence = Utility.RandomTools.PickRandomWeightedItem.PickRandomItemWeighted(spawnSequences);
 
-        spawnSequence.StartSpawnSequence(this);
+        if (previousSequence == spawnSequence)
+        {
+            SelectSpawnSequence();
+        }
+        else
+        {
+            spawnSequence.StartSpawnSequence(this);
+            previousSequence = spawnSequence;
+        }
     }
 
     private void SpawnObject(SpawnableObjectSO objectToSpawn)
@@ -44,13 +53,17 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public IEnumerator SpawnSequence(float time, List<SpawnableObjectSO> spawnObjects)
+    public IEnumerator SpawnSequence(float time, List<SpawnableObjectSO> spawnObjects, int repetitions)
     {
-        foreach (var _object in spawnObjects)
+        for (int i = 0; i < repetitions; i++)
         {
-            yield return new WaitForSeconds(time);
 
-            SpawnObject(_object);
+            foreach (var _object in spawnObjects)
+            {
+                yield return new WaitForSeconds(time);
+
+                SpawnObject(_object);
+            }
         }
 
         yield return new WaitForSeconds(time);

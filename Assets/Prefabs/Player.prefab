@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1628261260634438229}
   - component: {fileID: 1628261260634438228}
   - component: {fileID: 1628261260634438225}
+  - component: {fileID: 2082260335221117474}
   - component: {fileID: 1628261260634438230}
   - component: {fileID: 1628261260634438231}
   m_Layer: 0
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSettings: {fileID: 11400000, guid: 661ee590e7f34f2458a3bb54cc8f585e, type: 2}
   inputHandler: {fileID: 11400000, guid: 85f9bd27f750a9c4c88096c7cdf527d3, type: 2}
+  particlePrefab: {fileID: 3269269864374241387, guid: 9a2bc29859b409641979baa0dfe4dc81, type: 3}
 --- !u!60 &1628261260634438225
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -78,6 +80,27 @@ PolygonCollider2D:
       - {x: -0.15, y: 0}
       - {x: -0.3, y: -0.3}
       - {x: 0.3, y: 0}
+--- !u!50 &2082260335221117474
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628261260634438234}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!33 &1628261260634438230
 MeshFilter:
   m_ObjectHideFlags: 0

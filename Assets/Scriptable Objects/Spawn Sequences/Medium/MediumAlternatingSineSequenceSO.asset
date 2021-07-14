@@ -10,14 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a00554cd5989648a9866f031fbae69, type: 3}
-  m_Name: EasyWavySpawnSequenceSO
+  m_Name: MediumAlternatingSineSequenceSO
   m_EditorClassIdentifier: 
-  weight: 9
+  weight: 6
   orderedSpawns:
   - {fileID: 11400000, guid: 73282ebffd50ced4ea849187e348d8ba, type: 2}
-  - {fileID: 11400000, guid: 73282ebffd50ced4ea849187e348d8ba, type: 2}
-  - {fileID: 11400000, guid: 73282ebffd50ced4ea849187e348d8ba, type: 2}
-  - {fileID: 11400000, guid: 73282ebffd50ced4ea849187e348d8ba, type: 2}
-  - {fileID: 11400000, guid: 73282ebffd50ced4ea849187e348d8ba, type: 2}
-  - {fileID: 11400000, guid: 73282ebffd50ced4ea849187e348d8ba, type: 2}
-  timeBetweenSpawns: 1
+  - {fileID: 11400000, guid: 9b5f943025aa5694097062c547da48fa, type: 2}
+  timeBetweenSpawns: 0.5
+  sequenceRepetitions: 10

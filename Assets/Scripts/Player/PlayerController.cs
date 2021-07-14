@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerSettingsSO playerSettings;
     [SerializeField] private InputHandlerSO inputHandler;
+    [SerializeField] private GameObject particlePrefab;
 
     private PolygonCollider2D _collider;
     private MeshFilter _meshFilter;
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private Utility.Meshes.GenerateMesh _meshGenerator;
 
     private Transform shotPosition;
+
+    private bool playerDead = false;
 
     private void Awake()
     {
@@ -31,35 +34,42 @@ public class PlayerController : MonoBehaviour
     }
 
     Vector2 inputVector;
+    float speed = 0.01f;
     private void Update()
     {
-        inputHandler.onUpdateInternal();
-        inputVector = inputHandler.GetInputVector();
-
-        if (Input.GetButtonDown("Jump"))
+        if (!playerDead)
         {
-            Shoot(playerSettings.projectilePrefab, inputVector);
+            inputHandler.onUpdateInternal();
+            inputVector = inputHandler.GetInputVector();
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                Shoot(playerSettings.projectilePrefab, inputVector);
+            }
+
+            MovePlayer(inputVector, playerSettings.moveSpeed, playerSettings.acceleration, Time.deltaTime);
+
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                IncreaseSize(0.1f);
+            }
+            else if (Input.GetKeyDown(KeyCode.K))
+            {
+                DecreaseSize(0.1f);
+            }
         }
-
-        MovePlayer(inputVector, playerSettings.moveSpeed, playerSettings.acceleration, Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.J))
+        else
         {
-            IncreaseSize(0.1f);
+            transform.localScale -= new Vector3(speed, speed, 0);
+            speed += 0.01f;
+
+            if (transform.localScale.x <= 0)
+            {
+                transform.localScale = new Vector3(0, 0, 0);
+                CreateParticelEffect();
+                Destroy(this.gameObject);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            DecreaseSize(0.1f);
-        }
-
-        //List<(int, int)> list = new List<(int, int)>();
-
-        //list.Add((1, 1));
-        //list.Add((2, 1));
-        //list.Add((3, 5));
-        //list.Add((4, 10));
-
-        //Debug.Log(Utility.RandomTools.PickRandomWeightedItem.PickRandomItemWeighted(list));
     }
 
     private void MovePlayer(Vector2 direction, float speed, float acceleration, float deltaTime)
@@ -94,6 +104,18 @@ public class PlayerController : MonoBehaviour
 
         var projectile = projectileObject.GetComponent<Projectile>();
         projectile.Init(playerSettings.projectileSettings);
+    }
+
+    public void KillPlayer()
+    {
+        playerDead = true;
+    }
+
+    private void CreateParticelEffect()
+    {
+        var particleObject = Instantiate(particlePrefab);
+        particleObject.transform.position = transform.position;
+        particleObject.GetComponent<ParticleSystem>().startColor = GetComponent<MeshRenderer>().material.color;
     }
 
     public void IncreaseSize(float amount)

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5122b207f1d461b41b6b9c835e6e57de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 4999576003934405736, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
 --- !u!58 &521549819301778899
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -164,12 +165,12 @@ TrailRenderer:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: -0.42887092
-        outSlope: -0.42887092
+        inSlope: -0.090062894
+        outSlope: -0.090062894
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.05865922
+        outWeight: 0.1396648
       - serializedVersion: 3
         time: 1
         value: 0

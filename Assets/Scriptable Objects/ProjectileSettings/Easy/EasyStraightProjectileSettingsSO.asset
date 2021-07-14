@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385a59102d760384cb5d4bd24259615c, type: 3}
   m_Name: EasyStraightProjectileSettingsSO
   m_EditorClassIdentifier: 
+  projectileSprite: {fileID: -2413806693520163455, guid: 1efee26f1275631419d556564793f213, type: 3}
   projectileColor: {r: 1, g: 0.335008, b: 0, a: 1}
   trailLength: 0.5
   scale: {x: 0.2, y: 0.2}
   direction: {x: -1, y: 0}
   speed: 2
-  useSine: 0
+  projectileType: 0
   sineAmplitude: 1
   sineFrequency: 1
-  preserveMomentum: 0

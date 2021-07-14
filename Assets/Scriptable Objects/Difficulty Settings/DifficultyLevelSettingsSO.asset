@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeBetweenSpawnSequences: 2
   possibleSpawns:
-  - {fileID: 11400000, guid: 80477bcb790ff8e47a4a7e6f80599895, type: 2}
   - {fileID: 11400000, guid: 1ee826fe3ccbc58499cb90193d1c43eb, type: 2}
+  - {fileID: 11400000, guid: 80477bcb790ff8e47a4a7e6f80599895, type: 2}
   - {fileID: 11400000, guid: 786dd8360ad50d74784b9dd796e99c71, type: 2}
+  - {fileID: 11400000, guid: 72a5b820c051853498fbd89cf67b7c83, type: 2}
+  - {fileID: 11400000, guid: 9c601292ffcadb644b56be62f16d4b4d, type: 2}

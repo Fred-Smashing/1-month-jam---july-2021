@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         projectileObject.transform.position = shotPosition.position;
 
         var projectile = projectileObject.GetComponent<Projectile>();
-        projectile.Init(playerSettings.projectileSettings);
+        projectile.Init(playerSettings.projectileSettings, this.gameObject);
     }
 
     public void KillPlayer()

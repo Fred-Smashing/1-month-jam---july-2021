@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba8c1c63da104bf4787ffc4a6b6e814a, type: 3}
-  m_Name: EasyAlternateSineProjectileSpawnSO
+  m_Name: M_Alt_CircularProjectileSpawnSO
   m_EditorClassIdentifier: 
   prefab: {fileID: 521549819301778894, guid: 109f09f5ef962ab438a0f306e984134e, type: 3}
   isProjectile: 1
-  projectileSettings: {fileID: 11400000, guid: 26ab3f27aa6dc3844bbd6b2fff285f78, type: 2}
+  projectileSettings: {fileID: 11400000, guid: 83aa9e91605b11d47a1c35bacabd71e5, type: 2}

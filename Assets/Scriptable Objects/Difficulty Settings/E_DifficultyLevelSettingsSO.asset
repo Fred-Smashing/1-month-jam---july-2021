@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790d6e59e88d8e84486495b8ee5b8777, type: 3}
+  m_Name: E_DifficultyLevelSettingsSO
+  m_EditorClassIdentifier: 
+  TimeBetweenSpawnSequences: 1
+  possibleSpawns:
+  - {fileID: 11400000, guid: 1ee826fe3ccbc58499cb90193d1c43eb, type: 2}
+  - {fileID: 11400000, guid: 80477bcb790ff8e47a4a7e6f80599895, type: 2}
+  - {fileID: 11400000, guid: 786dd8360ad50d74784b9dd796e99c71, type: 2}

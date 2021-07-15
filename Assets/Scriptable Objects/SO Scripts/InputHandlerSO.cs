@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "InputHandlerSO", menuName = "Game/ScriptableObjects/Player/Input Handler")]
 public class InputHandlerSO :ScriptableObject
 {
-    private KeyCode shootKey = KeyCode.Space;
+    public KeyCode shootKey = KeyCode.Space;
 
     private Vector2 inputAxis;
     private bool shootPressed;

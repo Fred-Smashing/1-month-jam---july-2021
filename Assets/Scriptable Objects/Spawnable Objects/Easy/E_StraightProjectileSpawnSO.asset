@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba8c1c63da104bf4787ffc4a6b6e814a, type: 3}
-  m_Name: MediumStraightProjectileSpawnSO
+  m_Name: E_StraightProjectileSpawnSO
   m_EditorClassIdentifier: 
   prefab: {fileID: 521549819301778894, guid: 109f09f5ef962ab438a0f306e984134e, type: 3}
   isProjectile: 1
-  projectileSettings: {fileID: 11400000, guid: 7858e1ee21758bf49a152dad09995d3f, type: 2}
+  projectileSettings: {fileID: 11400000, guid: 58e07c7210c174643b0dc4816237b352, type: 2}

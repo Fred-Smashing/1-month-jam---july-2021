@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   acceleration: 1
+  shotCost: 0.1
   projectilePrefab: {fileID: 521549819301778894, guid: 109f09f5ef962ab438a0f306e984134e, type: 3}
   projectileSettings: {fileID: 11400000, guid: 5406d94b00fa0f449995541661b57aac, type: 2}

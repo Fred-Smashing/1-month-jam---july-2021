@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 790d6e59e88d8e84486495b8ee5b8777, type: 3}
-  m_Name: DifficultyLevelSettingsSO
+  m_Name: M_DifficultyLevelSettingsSO
   m_EditorClassIdentifier: 
-  TimeBetweenSpawnSequences: 2
+  TimeBetweenSpawnSequences: 1
   possibleSpawns:
-  - {fileID: 11400000, guid: 1ee826fe3ccbc58499cb90193d1c43eb, type: 2}
   - {fileID: 11400000, guid: 80477bcb790ff8e47a4a7e6f80599895, type: 2}
-  - {fileID: 11400000, guid: 786dd8360ad50d74784b9dd796e99c71, type: 2}
-  - {fileID: 11400000, guid: 72a5b820c051853498fbd89cf67b7c83, type: 2}
   - {fileID: 11400000, guid: 9c601292ffcadb644b56be62f16d4b4d, type: 2}
+  - {fileID: 11400000, guid: 931ce83026542f94ea7a9569f4027068, type: 2}
+  - {fileID: 11400000, guid: 509f1e600862b5b46a9aad38d9068ce2, type: 2}

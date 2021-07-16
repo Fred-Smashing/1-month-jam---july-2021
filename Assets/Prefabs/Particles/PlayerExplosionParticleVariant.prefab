@@ -56,12 +56,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4999576003934405739, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
+      propertyPath: useUnscaledTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999576003934405739, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
       propertyPath: TrailModule.enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4999576003934405739, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
       propertyPath: TrailModule.ribbonCount
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999576003934405739, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
+      propertyPath: ClampVelocityModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4999576003934405739, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
       propertyPath: TrailModule.widthOverTrail.scalar

@@ -6,6 +6,7 @@ using UnityEngine;
 public class SpawnableObjectSO : ScriptableObject
 {
     public GameObject prefab;
+    public EnemyShipSettingsSO enemyShipSettings;
 
     public bool isProjectile = false;
     public ProjectileSettingsSO projectileSettings;

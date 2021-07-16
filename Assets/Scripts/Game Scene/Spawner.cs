@@ -56,10 +56,10 @@ public class Spawner : MonoBehaviour
         spawnSequence.StartSpawnSequence(this);
     }
 
-    private void SpawnObject(SpawnableObjectSO objectToSpawn)
+    private void SpawnObject(SpawnableObjectSO objectToSpawn, Vector2 spawnOffset)
     {
         var spawnedObject = Instantiate(objectToSpawn.prefab);
-        spawnedObject.transform.position = transform.position;
+        spawnedObject.transform.position = transform.position + (Vector3)spawnOffset;
 
         if (objectToSpawn.isProjectile)
         {
@@ -68,8 +68,16 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public IEnumerator SpawnSequence(float time, List<SpawnableObjectSO> spawnObjects, int repetitions)
+    public IEnumerator SpawnSequence(float time, List<SpawnableObjectSO> spawnObjects, int repetitions, List<Vector2> offsets = null)
     {
+        currentOffset = 0;
+
+        if (offsets == null || offsets.Count <= 0)
+        {
+            offsets = new List<Vector2>();
+            offsets.Add(Vector2.zero);
+        }
+
         for (int i = 0; i < repetitions; i++)
         {
 
@@ -77,7 +85,9 @@ public class Spawner : MonoBehaviour
             {
                 yield return new WaitForSeconds(time);
 
-                SpawnObject(_object);
+                var spawnOffset = GetSpawnOffset(offsets);
+
+                SpawnObject(_object, spawnOffset);
             }
         }
 
@@ -86,53 +96,25 @@ public class Spawner : MonoBehaviour
         StartCoroutine(SpawnSequenceTimer(difficultySettings.TimeBetweenSpawnSequences));
     }
 
+    private int currentOffset = 0;
+    private Vector2 GetSpawnOffset(List<Vector2> offsets)
+    {
+        var chosenOffset = offsets[currentOffset];
+
+        currentOffset++;
+
+        if (currentOffset > offsets.Count - 1)
+        {
+            currentOffset = 0;
+        }
+
+        return chosenOffset;
+    }
+
     private IEnumerator SpawnSequenceTimer(float time)
     {
         yield return new WaitForSeconds(time);
 
         SelectSpawnSequence();
-    }
-}
-
-internal struct NewStruct
-{
-    public WeightedSpawnSequenceSO WeightedSpawnSequenceSO;
-    public int Item2;
-
-    public NewStruct(WeightedSpawnSequenceSO weightedSpawnSequenceSO, int item2)
-    {
-        WeightedSpawnSequenceSO = weightedSpawnSequenceSO;
-        Item2 = item2;
-    }
-
-    public override bool Equals(object obj)
-    {
-        return obj is NewStruct other &&
-               EqualityComparer<WeightedSpawnSequenceSO>.Default.Equals(WeightedSpawnSequenceSO, other.WeightedSpawnSequenceSO) &&
-               Item2 == other.Item2;
-    }
-
-    public override int GetHashCode()
-    {
-        int hashCode = -761140548;
-        hashCode = hashCode * -1521134295 + EqualityComparer<WeightedSpawnSequenceSO>.Default.GetHashCode(WeightedSpawnSequenceSO);
-        hashCode = hashCode * -1521134295 + Item2.GetHashCode();
-        return hashCode;
-    }
-
-    public void Deconstruct(out WeightedSpawnSequenceSO weightedSpawnSequenceSO, out int item2)
-    {
-        weightedSpawnSequenceSO = WeightedSpawnSequenceSO;
-        item2 = Item2;
-    }
-
-    public static implicit operator (WeightedSpawnSequenceSO WeightedSpawnSequenceSO, int)(NewStruct value)
-    {
-        return (value.WeightedSpawnSequenceSO, value.Item2);
-    }
-
-    public static implicit operator NewStruct((WeightedSpawnSequenceSO WeightedSpawnSequenceSO, int) value)
-    {
-        return new NewStruct(value.WeightedSpawnSequenceSO, value.Item2);
     }
 }

@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     }
 
     Vector2 inputVector;
-    float speed = 0.01f;
+    float deathSpeed = 0.1f;
     private void Update()
     {
         if (!playerDead)
@@ -57,20 +57,30 @@ public class PlayerController : MonoBehaviour
             {
                 DecreaseSize(0.1f);
             }
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                KillPlayer();
+            }
         }
         else
         {
-            transform.localScale -= new Vector3(speed, speed, 0);
-            speed += 0.01f;
+            float timescale = Mathf.Lerp(Time.timeScale, 0.2f, deathSpeed * Time.timeScale);
+            float xScale = Mathf.Lerp(transform.localScale.x, 0f, deathSpeed * Time.timeScale);
+            float yScale = Mathf.Lerp(transform.localScale.y, 0f, deathSpeed * Time.timeScale);
 
-            if (transform.localScale.x <= 0)
+            Time.timeScale = timescale;
+            transform.localScale = new Vector3(xScale, yScale, 1);
+
+            if (xScale <= 0.1f || yScale <= 0.1f)
             {
-                transform.localScale = new Vector3(0, 0, 0);
-                CreateParticelEffect();
+                CreateParticleEffect();
                 Destroy(this.gameObject);
             }
         }
+        timescale = Time.timeScale;
     }
+    public float timescale;
 
     private void MovePlayer(Vector2 direction, float speed, float acceleration, float deltaTime)
     {
@@ -111,11 +121,19 @@ public class PlayerController : MonoBehaviour
         playerDead = true;
     }
 
-    private void CreateParticelEffect()
+    private void CreateParticleEffect()
     {
         var particleObject = Instantiate(particlePrefab);
         particleObject.transform.position = transform.position;
         particleObject.GetComponent<ParticleSystem>().startColor = GetComponent<MeshRenderer>().material.color;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            KillPlayer();
+        }
     }
 
     public void IncreaseSize(float amount)

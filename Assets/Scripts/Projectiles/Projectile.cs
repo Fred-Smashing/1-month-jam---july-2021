@@ -104,7 +104,7 @@ public class Projectile : MonoBehaviour
     {
         Vector3 pos;
 
-        var sin = TimeSin(sineFrequency, sineAmplitude, sineTime);
+        var sin = Mathf.Sin(sineFrequency * sineTime) * sineAmplitude;
 
         pos = new Vector3(0, sin, 0);
 
@@ -118,11 +118,6 @@ public class Projectile : MonoBehaviour
         Vector3 pos = new Vector3(cos, sin, 0);
 
         return pos;
-    }
-
-    private float TimeSin(float frequency, float amplitude, float time)
-    {
-        return Mathf.Sin(frequency * time) * amplitude;
     }
 
     private float AngleSin(float angle)
@@ -146,17 +141,26 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject != creator)
+        if (collision.gameObject != creator && creator!= null)
         {
-            CreateParticelEffect();
-
             if (collision.CompareTag("Player"))
             {
                 collision?.GetComponent<PlayerController>().KillPlayer();
+                HitTarget();
             }
 
-            Destroy(this.gameObject);
+            if (creator.CompareTag("Player") && collision.CompareTag("Enemy"))
+            {
+                collision?.GetComponent<EnemyController>().KillEnemy();
+                HitTarget();
+            }
         }
+    }
+
+    private void HitTarget()
+    {
+        CreateParticelEffect();
+        Destroy(this.gameObject);
     }
 
     private void CreateParticelEffect()

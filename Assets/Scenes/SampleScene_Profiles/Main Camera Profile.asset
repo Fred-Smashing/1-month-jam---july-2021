@@ -150,5 +150,5 @@ MonoBehaviour:
     overrideState: 1
     value: 3
   lumContrib:
-    overrideState: 0
-    value: 0.8
+    overrideState: 1
+    value: 1

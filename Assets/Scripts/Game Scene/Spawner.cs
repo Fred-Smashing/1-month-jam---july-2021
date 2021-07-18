@@ -9,19 +9,19 @@ public class Spawner : MonoBehaviour
     private List<(WeightedSpawnSequenceSO, int)> spawnSequences = new List<(WeightedSpawnSequenceSO, int)>();
 
     float maxHeight;
-    float minheight;
+    float minHeight;
 
-    private void Awake()
+    public void Init(float _maxHeight, float _minHeight)
     {
+        maxHeight = _maxHeight;
+        minHeight = _minHeight;
+
         StartCoroutine(SpawnSequenceTimer(difficultySettings.TimeBetweenSpawnSequences));
 
         foreach (var _object in difficultySettings.possibleSpawns)
         {
             spawnSequences.Add((_object, _object.weight));
         }
-
-        maxHeight = Camera.main.ScreenToWorldPoint(Vector3.zero).y;
-        minheight = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y;
     }
 
     [SerializeField] private WeightedSpawnSequenceSO previousSequence = null;

@@ -17,11 +17,16 @@ public class PlayerController : MonoBehaviour
     private Transform shotPosition;
 
     private bool playerDead = false;
+    private bool playerEnabled = false;
 
-    private void Awake()
+    public void SetPlayerEnabled(bool enabled)
+    {
+        playerEnabled = enabled;
+    }
+
+    public void Init()
     {
         InitMeshDrawingComponents();
-
         shotPosition = GameObject.Find("ShotPosition").transform;
     }
 
@@ -37,50 +42,47 @@ public class PlayerController : MonoBehaviour
     float deathSpeed = 0.1f;
     private void Update()
     {
-        if (!playerDead)
+        if (playerEnabled)
         {
-            inputHandler.onUpdateInternal();
-            inputVector = inputHandler.GetInputVector();
 
-            if (Input.GetButtonDown("Jump"))
+            if (!playerDead)
             {
-                Shoot(playerSettings.projectilePrefab, inputVector);
+                inputHandler.onUpdateInternal();
+                inputVector = inputHandler.GetInputVector();
+
+                if (Input.GetButtonDown("Jump"))
+                {
+                    Shoot(playerSettings.projectilePrefab, inputVector);
+                }
+
+                MovePlayer(inputVector, playerSettings.moveSpeed, playerSettings.acceleration, Time.deltaTime);
+
+                if (Input.GetKeyDown(KeyCode.J))
+                {
+                    IncreaseSize(0.1f);
+                }
             }
-
-            MovePlayer(inputVector, playerSettings.moveSpeed, playerSettings.acceleration, Time.deltaTime);
-
-            if (Input.GetKeyDown(KeyCode.J))
+            else
             {
-                IncreaseSize(0.1f);
-            }
-            else if (Input.GetKeyDown(KeyCode.K))
-            {
-                DecreaseSize(0.1f);
-            }
+                float timescale = Mathf.Lerp(Time.timeScale, 0.2f, deathSpeed * Time.timeScale);
+                float xScale = Mathf.Lerp(transform.localScale.x, 0f, deathSpeed * Time.timeScale);
+                float yScale = Mathf.Lerp(transform.localScale.y, 0f, deathSpeed * Time.timeScale);
 
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                KillPlayer();
+                Time.timeScale = timescale;
+                transform.localScale = new Vector3(xScale, yScale, 1);
+
+                if (xScale <= 0.1f || yScale <= 0.1f)
+                {
+                    CreateParticleEffect();
+                    Destroy(this.gameObject);
+                }
             }
         }
         else
         {
-            float timescale = Mathf.Lerp(Time.timeScale, 0.2f, deathSpeed * Time.timeScale);
-            float xScale = Mathf.Lerp(transform.localScale.x, 0f, deathSpeed * Time.timeScale);
-            float yScale = Mathf.Lerp(transform.localScale.y, 0f, deathSpeed * Time.timeScale);
 
-            Time.timeScale = timescale;
-            transform.localScale = new Vector3(xScale, yScale, 1);
-
-            if (xScale <= 0.1f || yScale <= 0.1f)
-            {
-                CreateParticleEffect();
-                Destroy(this.gameObject);
-            }
         }
-        timescale = Time.timeScale;
     }
-    public float timescale;
 
     private void MovePlayer(Vector2 direction, float speed, float acceleration, float deltaTime)
     {

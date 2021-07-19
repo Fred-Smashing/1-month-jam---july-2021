@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
     {
         InitMeshDrawingComponents();
 
-        StartCoroutine(ShotTimer(settings.timeBetweenShots));
+        StartCoroutine(ShotTimer(Random.Range(settings.minTimeBetweenShots, settings.maxTimeBetweenShots)));
     }
 
     private void InitMeshDrawingComponents()
@@ -53,7 +53,9 @@ public class EnemyController : MonoBehaviour
 
                     var horizontal = Mathf.Lerp(transform.position.x, settings.simpleShipTargetX, settings.simpleShipSpeed * Time.deltaTime);
 
-                    transform.position = new Vector3(horizontal, SineMovement(settings.simpleShipSpeed, settings.simpleShipMoveDistane, continuousTime).y, transform.position.z);
+                    var sin = SineMovement(settings.simpleShipSpeed, settings.simpleShipMoveDistane, continuousTime).y * Time.deltaTime;
+
+                    transform.position = new Vector3(horizontal, transform.position.y + sin, transform.position.z);
                     break;
 
                 case EnemyType.FAST:
@@ -120,7 +122,7 @@ public class EnemyController : MonoBehaviour
 
         projectileScript.Init(settings.projectileSettings, this.gameObject);
 
-        StartCoroutine(ShotTimer(settings.timeBetweenShots));
+        StartCoroutine(ShotTimer(Random.Range(settings.minTimeBetweenShots, settings.maxTimeBetweenShots)));
     }
 
     private IEnumerator ShotTimer(float time)

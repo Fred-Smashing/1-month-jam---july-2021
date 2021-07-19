@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Time.timeScale = 1;
-            Application.LoadLevel(0);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         System.Action<ITween<Vector3>> updateObjectPosition = (t) =>
         {
-            _object.transform.position = t.CurrentValue;
+            _object.transform.localPosition = t.CurrentValue;
         };
 
         System.Action<ITween<Vector3>> updatePositionComplete = (t) =>
@@ -57,7 +57,9 @@ public class GameManager : MonoBehaviour
             }
         };
 
-        player.gameObject.Tween(tweenName, from, to, time, TweenScaleFunctions.SineEaseInOut, updateObjectPosition, updatePositionComplete);
+        var tween = player.gameObject.Tween(tweenName, from, to, time, TweenScaleFunctions.SineEaseInOut, updateObjectPosition, updatePositionComplete);
+
+        tween.ForceUpdate = true;
     }
 
     private void SetupPlayer()

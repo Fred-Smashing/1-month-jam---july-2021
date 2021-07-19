@@ -1,3 +1,5 @@
+#if (UNITY_EDITOR)
+
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Windows;
@@ -305,3 +307,5 @@ namespace Utility.Textures
         }
     }
 }
+
+#endif

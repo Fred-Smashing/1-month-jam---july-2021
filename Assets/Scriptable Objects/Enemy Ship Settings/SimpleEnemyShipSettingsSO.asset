@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   deathSpeed: 0.3
+  simpleShipTargetX: 5
   simpleShipSpeed: 1
   simpleShipMoveDistane: 1
-  timeBetweenShots: 2
+  minTimeBetweenShots: 0.8
+  maxTimeBetweenShots: 1.2
   projectilePrefab: {fileID: 521549819301778894, guid: 109f09f5ef962ab438a0f306e984134e, type: 3}
   projectileSettings: {fileID: 11400000, guid: 9946ba22a83bdb94a9a3289b7687c1d9, type: 2}

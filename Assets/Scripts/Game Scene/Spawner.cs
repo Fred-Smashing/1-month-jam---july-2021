@@ -68,9 +68,15 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public IEnumerator SpawnSequence(float time, List<SpawnableObjectSO> spawnObjects, int repetitions, List<Vector2> offsets = null)
+    public IEnumerator SpawnSequence(float time, List<SpawnableObjectSO> spawnObjects, int repetitions, List<Vector2> offsets = null, bool allowRandomOffsets = false)
     {
         currentOffset = 0;
+        var randomOffset = Vector2.zero;
+
+        if (allowRandomOffsets)
+        {
+            randomOffset.y = Random.Range(maxHeight / 2, minHeight / 2);
+        }
 
         if (offsets == null || offsets.Count <= 0)
         {
@@ -85,7 +91,7 @@ public class Spawner : MonoBehaviour
             {
                 yield return new WaitForSeconds(time);
 
-                var spawnOffset = GetSpawnOffset(offsets);
+                var spawnOffset = randomOffset + GetSpawnOffset(offsets);
 
                 SpawnObject(_object, spawnOffset);
             }

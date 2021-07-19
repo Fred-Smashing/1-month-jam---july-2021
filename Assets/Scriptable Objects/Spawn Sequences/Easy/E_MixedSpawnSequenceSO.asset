@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a00554cd5989648a9866f031fbae69, type: 3}
   m_Name: E_MixedSpawnSequenceSO
   m_EditorClassIdentifier: 
-  weight: 8
+  weight: 85
+  allowRandomOffsets: 0
   orderedSpawns:
   - {fileID: 11400000, guid: 7692f93dfc54296459fc9bd367921251, type: 2}
   - {fileID: 11400000, guid: 73282ebffd50ced4ea849187e348d8ba, type: 2}
@@ -21,5 +22,5 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: -1}
   - {x: 0, y: -3}
-  timeBetweenSpawns: 1
-  sequenceRepetitions: 4
+  timeBetweenSpawns: 0.5
+  sequenceRepetitions: 8

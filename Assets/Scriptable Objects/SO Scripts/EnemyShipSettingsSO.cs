@@ -15,7 +15,8 @@ public class EnemyShipSettingsSO : ScriptableObject
     public float simpleShipMoveDistane = 1;
 
     [Header("Projectile Settings"), Space]
-    public float timeBetweenShots = 1;
+    public float minTimeBetweenShots = 1;
+    public float maxTimeBetweenShots = 2;
     public GameObject projectilePrefab;
     public ProjectileSettingsSO projectileSettings;
 }

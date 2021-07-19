@@ -10,12 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4a00554cd5989648a9866f031fbae69, type: 3}
-  m_Name: Ship_SimpleSpawnSequenceSO
+  m_Name: E_StraightTriangleSequenceSO
   m_EditorClassIdentifier: 
-  weight: 200
-  allowRandomOffsets: 1
+  weight: 80
+  allowRandomOffsets: 0
   orderedSpawns:
-  - {fileID: 11400000, guid: eae271d54c3bb8a4fb34c2bc02bd3788, type: 2}
-  spawnOffsets: []
-  timeBetweenSpawns: 1
-  sequenceRepetitions: 1
+  - {fileID: 11400000, guid: 7692f93dfc54296459fc9bd367921251, type: 2}
+  spawnOffsets:
+  - {x: 0, y: 0}
+  - {x: 0.5, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0.5, y: 2}
+  - {x: 0, y: -2}
+  - {x: 0.5, y: 3}
+  - {x: 0, y: -3}
+  - {x: 0.5, y: 4}
+  - {x: 0, y: -4}
+  timeBetweenSpawns: 0.25
+  sequenceRepetitions: 9

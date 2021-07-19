@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a00554cd5989648a9866f031fbae69, type: 3}
   m_Name: E_StraightSpawnSequenceSO
   m_EditorClassIdentifier: 
-  weight: 10
+  weight: 100
+  allowRandomOffsets: 1
   orderedSpawns:
   - {fileID: 11400000, guid: 7692f93dfc54296459fc9bd367921251, type: 2}
   spawnOffsets:

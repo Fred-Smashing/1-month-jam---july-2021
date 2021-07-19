@@ -133,7 +133,12 @@ public class Projectile : MonoBehaviour
     private void DestroyOffScreen()
     {
         Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        if (screenPos.x > Screen.width + 500 || screenPos.x < -200)
+
+        if (settings.direction.x > 0 && screenPos.x  > Screen.width + 100)
+        {
+            Destroy(this.gameObject);
+        }
+        else if (settings.direction.x < 0 && screenPos.x < -100)
         {
             Destroy(this.gameObject);
         }

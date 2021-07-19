@@ -7,6 +7,8 @@ public class WeightedSpawnSequenceSO : ScriptableObject
 {
     public int weight = 1;
 
+    public bool allowRandomOffsets = false;
+
     public List<SpawnableObjectSO> orderedSpawns = new List<SpawnableObjectSO>();
 
     public List<Vector2> spawnOffsets = new List<Vector2>();
@@ -17,6 +19,6 @@ public class WeightedSpawnSequenceSO : ScriptableObject
 
     public void StartSpawnSequence(Spawner spawner)
     {
-        spawner.StartCoroutine(spawner.SpawnSequence(timeBetweenSpawns, orderedSpawns, sequenceRepetitions, spawnOffsets));
+        spawner.StartCoroutine(spawner.SpawnSequence(timeBetweenSpawns, orderedSpawns, sequenceRepetitions, spawnOffsets, allowRandomOffsets));
     }
 }

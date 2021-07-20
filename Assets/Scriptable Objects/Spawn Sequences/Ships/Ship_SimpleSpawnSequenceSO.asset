@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a00554cd5989648a9866f031fbae69, type: 3}
   m_Name: Ship_SimpleSpawnSequenceSO
   m_EditorClassIdentifier: 
-  weight: 200
+  weight: 70
   allowRandomOffsets: 1
   orderedSpawns:
   - {fileID: 11400000, guid: eae271d54c3bb8a4fb34c2bc02bd3788, type: 2}

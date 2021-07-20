@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790d6e59e88d8e84486495b8ee5b8777, type: 3}
   m_Name: R_AllSpawnsLevelSettingsSO
   m_EditorClassIdentifier: 
-  TimeBetweenSpawnSequences: 1
+  TimeBetweenSpawnSequences: 0.1
   possibleSpawns:
   - {fileID: 11400000, guid: 1ee826fe3ccbc58499cb90193d1c43eb, type: 2}
   - {fileID: 11400000, guid: 80477bcb790ff8e47a4a7e6f80599895, type: 2}
+  - {fileID: 11400000, guid: 87060f8202ad1ed40af0f141ee8c6e1b, type: 2}
+  - {fileID: 11400000, guid: 450f93951ecd050479bc3ea775bdcef3, type: 2}
   - {fileID: 11400000, guid: 786dd8360ad50d74784b9dd796e99c71, type: 2}
-  - {fileID: 11400000, guid: 9c601292ffcadb644b56be62f16d4b4d, type: 2}
   - {fileID: 11400000, guid: 931ce83026542f94ea7a9569f4027068, type: 2}
   - {fileID: 11400000, guid: 509f1e600862b5b46a9aad38d9068ce2, type: 2}
+  - {fileID: 11400000, guid: 9c601292ffcadb644b56be62f16d4b4d, type: 2}
   - {fileID: 11400000, guid: 62b9a1d51c90c3f4ea5a0133bc1ac8a1, type: 2}
+  - {fileID: 11400000, guid: 65d6d934d24ef5a45acac6092b88482e, type: 2}
+  - {fileID: 11400000, guid: dd98292e55d05f944ab569d572fe8166, type: 2}

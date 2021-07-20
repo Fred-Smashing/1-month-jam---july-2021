@@ -12,7 +12,7 @@ public class ProjectileSettingsSO : ScriptableObject
     public Vector2 scale = new Vector2(1, 1);
 
     [Header("Projectile Movement Settings")]
-    public Vector2 direction = Vector2.right;
+    [Min(-1), ] public Vector2 direction = Vector2.right;
     public float speed;
 
     [Header("Projectile Type Settings")]

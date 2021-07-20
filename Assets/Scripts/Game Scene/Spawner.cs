@@ -66,6 +66,11 @@ public class Spawner : MonoBehaviour
             var projectileScript = spawnedObject.GetComponent<Projectile>();
             projectileScript.Init(objectToSpawn.projectileSettings, this.gameObject);
         }
+        else
+        {
+            var controllerScript = spawnedObject.GetComponent<EnemyController>();
+            controllerScript.Init(objectToSpawn.enemyShipSettings);
+        }
     }
 
     public IEnumerator SpawnSequence(float time, List<SpawnableObjectSO> spawnObjects, int repetitions, List<Vector2> offsets = null, bool allowRandomOffsets = false)

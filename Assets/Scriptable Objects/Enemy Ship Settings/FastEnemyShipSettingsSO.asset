@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 345ebe29c76c0e043bbd2977a633d64b, type: 3}
-  m_Name: SimpleEnemyShipSettingsSO
+  m_Name: FastEnemyShipSettingsSO
   m_EditorClassIdentifier: 
-  enemyType: 0
-  deathSpeed: 0.3
+  enemyType: 1
+  deathSpeed: 0.1
   simpleShipTargetX: 5
   simpleShipSpeed: 1
   simpleShipMoveDistane: 1
   fastShipSpeed: 10
-  minTimeBetweenShots: 0.8
-  maxTimeBetweenShots: 1.2
+  minTimeBetweenShots: 0.3
+  maxTimeBetweenShots: 0.3
   projectilePrefab: {fileID: 521549819301778894, guid: 109f09f5ef962ab438a0f306e984134e, type: 3}
   projectileSettings:
-  - {fileID: 11400000, guid: 9946ba22a83bdb94a9a3289b7687c1d9, type: 2}
+  - {fileID: 11400000, guid: ffd8f0d6d55ef2041b9cb42f97bae73f, type: 2}
+  - {fileID: 11400000, guid: 432cd3168bde57846adab593dac53451, type: 2}

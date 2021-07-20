@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InputHandlerSO", menuName = "Game/ScriptableObjects/Player/Input Handler")]
-public class InputHandlerSO :ScriptableObject
+public class InputHandlerSO : ScriptableObject
 {
     public KeyCode shootKey = KeyCode.Space;
 

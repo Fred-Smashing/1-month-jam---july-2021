@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
 
     private Utility.Meshes.GenerateMesh _meshGenerator;
 
-    public EnemyShipSettingsSO settings;
+    private EnemyShipSettingsSO settings;
 
     public GameObject particlePrefab;
 
@@ -25,8 +25,10 @@ public class EnemyController : MonoBehaviour
         ADVANCED,//flies up and down matching the height of the player and shoots at them
     }
 
-    private void Awake()
+    public void Init(EnemyShipSettingsSO _settings)
     {
+        settings = _settings;
+
         InitMeshDrawingComponents();
 
         StartCoroutine(ShotTimer(Random.Range(settings.minTimeBetweenShots, settings.maxTimeBetweenShots)));
@@ -42,7 +44,6 @@ public class EnemyController : MonoBehaviour
 
     float continuousTime = 0;
 
-    Vector3 targetPos;
     private void Update()
     {
         if (!isDead)
@@ -59,6 +60,19 @@ public class EnemyController : MonoBehaviour
                     break;
 
                 case EnemyType.FAST:
+                    var pos = transform.position;
+
+                    pos += new Vector3(-1 * settings.fastShipSpeed, 0, 0) * Time.deltaTime;
+
+                    transform.position = pos;
+
+                    Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+                    if (PositionOutsideOfScreen(screenPos) && screenPos.x < -100)
+                    {
+                        Destroy(this.gameObject);
+                    }
+
                     break;
 
                 case EnemyType.SURROUND:
@@ -70,12 +84,19 @@ public class EnemyController : MonoBehaviour
                     if (player != null)
                     {
                         var playerY = player.transform.position.y;
+                        var playerX = player.transform.position.x;
 
-                        var diff = Mathf.Abs(transform.position.y - (float)playerY);
+                        var yDiff = Mathf.Abs(transform.position.y - (float)playerY);
 
-                        var targetY = Mathf.Lerp(transform.position.y, (float)playerY, diff * Time.deltaTime);
+                        var targetY = Mathf.Lerp(transform.position.y, (float)playerY, yDiff * Time.deltaTime);
+                        var targetX = Mathf.Lerp(transform.position.x, (float)playerX + settings.distanceFromPlayer, Time.deltaTime);
 
-                        transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
+                        if (PositionOutsideOfScreen(Camera.main.WorldToScreenPoint(new Vector3(targetX, targetY))))
+                        {
+                            targetX = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
+                        }
+
+                        transform.position = new Vector3(targetX, targetY, transform.position.z);
                     }
 
                     break;
@@ -100,6 +121,7 @@ public class EnemyController : MonoBehaviour
 
     public void KillEnemy()
     {
+        StopAllCoroutines();
         GetComponent<Collider2D>().enabled = false;
         isDead = true;
     }
@@ -113,16 +135,24 @@ public class EnemyController : MonoBehaviour
 
     private void Shoot()
     {
-        var projectileObj = Instantiate(settings.projectilePrefab);
+        foreach (var projectileSetting in settings.projectileSettings)
+        {
+            CreateProjectile(settings.projectilePrefab, projectileSetting);
+        }
+
+        StartCoroutine(ShotTimer(Random.Range(settings.minTimeBetweenShots, settings.maxTimeBetweenShots)));
+    }
+
+    private void CreateProjectile(GameObject prefab, ProjectileSettingsSO settings)
+    {
+        var projectileObj = Instantiate(prefab);
 
         projectileObj.transform.position = transform.position;
         projectileObj.transform.parent = null;
 
         var projectileScript = projectileObj.GetComponent<Projectile>();
 
-        projectileScript.Init(settings.projectileSettings, this.gameObject);
-
-        StartCoroutine(ShotTimer(Random.Range(settings.minTimeBetweenShots, settings.maxTimeBetweenShots)));
+        projectileScript.Init(settings, this.gameObject);
     }
 
     private IEnumerator ShotTimer(float time)
@@ -141,6 +171,21 @@ public class EnemyController : MonoBehaviour
         pos = new Vector3(0, sin, 0);
 
         return pos;
+    }
+
+    private bool PositionOutsideOfScreen(Vector2 position)
+    {
+        if (position.x > Screen.width || position.x < 0)
+        {
+            return true;
+        }
+
+        if (position.y > Screen.height || position.y < 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void ExternalUpdateMesh()

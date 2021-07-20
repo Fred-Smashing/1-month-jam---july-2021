@@ -130,15 +130,25 @@ public class Projectile : MonoBehaviour
         return Mathf.Cos(angle);
     }
 
+    float bufferDistance = 100;
     private void DestroyOffScreen()
     {
         Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
-        if (settings.direction.x > 0 && screenPos.x  > Screen.width + 100)
+        if (settings.direction.x > 0 && screenPos.x > Screen.width + bufferDistance)
         {
             Destroy(this.gameObject);
         }
-        else if (settings.direction.x < 0 && screenPos.x < -100)
+        else if (settings.direction.x < 0 && screenPos.x < -bufferDistance)
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (settings.direction.y > 0 && screenPos.y > Screen.height + bufferDistance)
+        {
+            Destroy(this.gameObject);
+        }
+        else if (settings.direction.y < 0 && screenPos.y < -bufferDistance)
         {
             Destroy(this.gameObject);
         }
@@ -146,7 +156,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject != creator && creator!= null)
+        if (collision.gameObject != creator && creator != null)
         {
             if (collision.CompareTag("Player"))
             {

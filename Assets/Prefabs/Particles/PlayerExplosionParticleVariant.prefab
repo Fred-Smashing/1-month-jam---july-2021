@@ -55,6 +55,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4999576003934405738, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999576003934405738, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 128c61f860dc0fc41974d78ff4f9c585, type: 2}
     - target: {fileID: 4999576003934405739, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
       propertyPath: useUnscaledTime
       value: 0
@@ -83,5 +91,9 @@ PrefabInstance:
       propertyPath: TrailModule.widthOverTrail.maxCurve.m_Curve.Array.data[1].value
       value: 0.5135135
       objectReference: {fileID: 0}
+    - target: {fileID: 5422191730372296455, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3a2f8bdb4a70f304daa0dc417a4dc2bf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32ef44f3cbfbcc042bb71c5a7800b002, type: 3}

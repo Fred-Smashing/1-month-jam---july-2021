@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour
 
     private GameObject creator;
 
+    private GameManager gameManager;
+
     public enum ProjectileType
     {
         STRAIGHT,
@@ -34,6 +36,8 @@ public class Projectile : MonoBehaviour
         _collider.isTrigger = true;
 
         circularSpeed = (2 * Mathf.PI) / settings.circleTime;
+
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void SetSprite()
@@ -89,7 +93,12 @@ public class Projectile : MonoBehaviour
                 break;
         }
 
-        DestroyOffScreen();
+
+        if (!gameManager.gameOver)
+        {
+            DestroyOffScreen();
+        }
+
         continuousTime += Time.deltaTime;
     }
 
@@ -156,7 +165,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject != creator && creator != null)
+        if (collision.gameObject != creator && creator != null && !gameManager.gameOver)
         {
             if (collision.CompareTag("Player"))
             {
@@ -172,7 +181,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void HitTarget()
+    public void HitTarget()
     {
         CreateParticelEffect();
         Destroy(this.gameObject);
@@ -183,5 +192,7 @@ public class Projectile : MonoBehaviour
         var particleObject = Instantiate(particlePrefab);
         particleObject.transform.position = transform.position;
         particleObject.GetComponent<ParticleSystem>().startColor = settings.projectileColor;
+
+        particleObject.GetComponent<AudioSource>().pitch = Random.RandomRange(0.8f, 1.2f);
     }
 }

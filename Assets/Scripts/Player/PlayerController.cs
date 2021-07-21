@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private PolygonCollider2D _collider;
     private MeshFilter _meshFilter;
 
+    private RandomOneShotSound oneShotPlayer;
+
     private Utility.Meshes.GenerateMesh _meshGenerator;
 
     private Transform shotPosition;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         InitMeshDrawingComponents();
         shotPosition = GameObject.Find("ShotPosition").transform;
+        oneShotPlayer = GetComponent<RandomOneShotSound>();
     }
 
     private void InitMeshDrawingComponents()
@@ -56,11 +59,6 @@ public class PlayerController : MonoBehaviour
                 }
 
                 MovePlayer(inputVector, playerSettings.moveSpeed, playerSettings.acceleration, Time.deltaTime);
-
-                if (Input.GetKeyDown(KeyCode.J))
-                {
-                    IncreaseSize(0.1f);
-                }
             }
             else
             {
@@ -75,6 +73,8 @@ public class PlayerController : MonoBehaviour
                 {
                     CreateParticleEffect();
                     Destroy(this.gameObject);
+
+                    FindObjectOfType<GameManager>().EndGame();
                 }
             }
         }
@@ -116,6 +116,8 @@ public class PlayerController : MonoBehaviour
 
         var projectile = projectileObject.GetComponent<Projectile>();
         projectile.Init(playerSettings.projectileSettings, this.gameObject);
+
+        oneShotPlayer.PlaySound();
     }
 
     public void KillPlayer()

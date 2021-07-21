@@ -44,4 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 0}
-  player: {fileID: 0}
+  playerPrefab: {fileID: 1628261260634438234, guid: 367567799b031c546bfef641e29fe9b3, type: 3}
+  playerStartPos: {x: 15, y: 0, z: 0}
+  mainMenuCanvas: {fileID: 0}
+  scoreCanvas: {fileID: 0}

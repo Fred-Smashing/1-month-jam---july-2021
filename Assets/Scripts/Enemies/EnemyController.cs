@@ -6,12 +6,15 @@ public class EnemyController : MonoBehaviour
 {
     private PolygonCollider2D _collider;
     private MeshFilter _meshFilter;
+    private RandomOneShotSound oneShotPlayer;
 
     private Utility.Meshes.GenerateMesh _meshGenerator;
 
     private EnemyShipSettingsSO settings;
 
     public GameObject particlePrefab;
+
+    private GameManager gameManager;
 
     private bool isDead = false;
 
@@ -31,7 +34,11 @@ public class EnemyController : MonoBehaviour
 
         InitMeshDrawingComponents();
 
+        oneShotPlayer = GetComponent<RandomOneShotSound>();
+
         StartCoroutine(ShotTimer(Random.Range(settings.minTimeBetweenShots, settings.maxTimeBetweenShots)));
+
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void InitMeshDrawingComponents()
@@ -43,7 +50,7 @@ public class EnemyController : MonoBehaviour
     }
 
     float continuousTime = 0;
-
+    bool hasBeenOnScreen = false;
     private void Update()
     {
         if (!isDead)
@@ -68,7 +75,7 @@ public class EnemyController : MonoBehaviour
 
                     Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
-                    if (PositionOutsideOfScreen(screenPos) && screenPos.x < -100)
+                    if (PositionOutsideOfScreen(screenPos) && screenPos.x < -100 && !gameManager.gameOver)
                     {
                         Destroy(this.gameObject);
                     }
@@ -103,6 +110,16 @@ public class EnemyController : MonoBehaviour
             }
 
             continuousTime += Time.deltaTime;
+
+            if (gameManager.gameOver || PositionOutsideOfScreen(Camera.main.WorldToScreenPoint(transform.position)) && hasBeenOnScreen)
+            {
+                StopAllCoroutines();
+            }
+
+            if (!hasBeenOnScreen && !PositionOutsideOfScreen(Camera.main.WorldToScreenPoint(transform.position)))
+            {
+                hasBeenOnScreen = true;
+            }
         }
         else
         {
@@ -124,6 +141,8 @@ public class EnemyController : MonoBehaviour
         StopAllCoroutines();
         GetComponent<Collider2D>().enabled = false;
         isDead = true;
+
+        gameManager.enemiesDestroyed++;
     }
 
     private void CreateParticleEffect()
@@ -139,6 +158,8 @@ public class EnemyController : MonoBehaviour
         {
             CreateProjectile(settings.projectilePrefab, projectileSetting);
         }
+
+        oneShotPlayer.PlaySound();
 
         StartCoroutine(ShotTimer(Random.Range(settings.minTimeBetweenShots, settings.maxTimeBetweenShots)));
     }

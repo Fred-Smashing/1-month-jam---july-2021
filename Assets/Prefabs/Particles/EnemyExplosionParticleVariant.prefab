@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2523061266530956036, guid: 9a2bc29859b409641979baa0dfe4dc81, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3a2f8bdb4a70f304daa0dc417a4dc2bf, type: 3}
     - target: {fileID: 3269269864374241384, guid: 9a2bc29859b409641979baa0dfe4dc81, type: 3}
       propertyPath: ClampVelocityModule.dampen
       value: 0.1
@@ -15,6 +19,10 @@ PrefabInstance:
       propertyPath: ClampVelocityModule.enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3269269864374241385, guid: 9a2bc29859b409641979baa0dfe4dc81, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1088307a01ebec14481defc23049b14a, type: 2}
     - target: {fileID: 3269269864374241386, guid: 9a2bc29859b409641979baa0dfe4dc81, type: 3}
       propertyPath: m_RootOrder
       value: 0

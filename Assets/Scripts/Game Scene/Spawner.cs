@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Spawner : MonoBehaviour
 {
@@ -22,6 +23,46 @@ public class Spawner : MonoBehaviour
         {
             spawnSequences.Add((_object, _object.weight));
         }
+    }
+
+    public void CleanupLeftoverObjects()
+    {
+        StartCoroutine(CleanupLeftoverObjectsCoroutine());
+    }
+
+    private IEnumerator CleanupLeftoverObjectsCoroutine()
+    {
+        List<GameObject> enemies = GameObject.FindGameObjectsWithTag("Enemy").ToList();
+
+        StartCoroutine(DestroyObjectListCoroutine(enemies));
+
+        yield return new WaitUntil(() => coroutineFinished == true);
+
+        List<GameObject> projectiles = GameObject.FindGameObjectsWithTag("Projectile").ToList();
+
+        StartCoroutine(DestroyObjectListCoroutine(projectiles));
+    }
+
+    private bool coroutineFinished = false;
+    private IEnumerator DestroyObjectListCoroutine(List<GameObject> objects)
+    {
+        coroutineFinished = false;
+        for (int i = objects.Count - 1; i >= 0; i--)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            if (objects[i].CompareTag("Enemy"))
+            {
+                objects[i].GetComponent<EnemyController>().StopAllCoroutines();
+                objects[i].GetComponent<EnemyController>().KillEnemy();
+            }
+            else if (objects[i].CompareTag("Projectile"))
+            {
+                objects[i].GetComponent<Projectile>().HitTarget();
+            }
+        }
+
+        coroutineFinished = true;
     }
 
     [SerializeField] private WeightedSpawnSequenceSO previousSequence = null;

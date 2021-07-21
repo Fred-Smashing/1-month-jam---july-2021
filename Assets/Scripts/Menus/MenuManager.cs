@@ -15,10 +15,10 @@ public class MenuManager : MonoBehaviour
     {
         SetAllButtonsInteractable(false);
 
-        gameManager.StartGame();
+        gameManager.SetupGame();
     }
 
-    private void SetAllButtonsInteractable(bool interactable)
+    public void SetAllButtonsInteractable(bool interactable)
     {
         foreach (Button button in buttons)
         {

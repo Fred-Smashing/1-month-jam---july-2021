@@ -7,6 +7,7 @@ public class EnemyShipSettingsSO : ScriptableObject
 {
     [Header("Ship Type"), Space]
     public EnemyController.EnemyType enemyType = EnemyController.EnemyType.SIMPLE;
+    public Vector2 shipScale = new Vector2(1, 1);
     [Min(0.1f)] public float deathSpeed = 0.1f;
 
     [Header("Simple Ship Settings"), Space]
@@ -16,6 +17,11 @@ public class EnemyShipSettingsSO : ScriptableObject
 
     [Header("Fast Ship Settings"), Space]
     public float fastShipSpeed = 10;
+
+    [Header("Surround Ship Settings"), Space]
+    public float surroundSpeed = 1;
+    public float surroundOrbitSpeed = 1;
+    public float surroundRadius = 1;
 
     [Header("Advanced Ship Settings"), Space]
     public float distanceFromPlayer = 3;

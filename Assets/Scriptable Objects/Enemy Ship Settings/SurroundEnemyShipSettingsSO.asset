@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 345ebe29c76c0e043bbd2977a633d64b, type: 3}
+  m_Name: SurroundEnemyShipSettingsSO
+  m_EditorClassIdentifier: 
+  enemyType: 2
+  shipScale: {x: 0.6, y: 0.6}
+  deathSpeed: 0.1
+  simpleShipTargetX: 5
+  simpleShipSpeed: 1
+  simpleShipMoveDistane: 1
+  fastShipSpeed: 10
+  surroundSpeed: 1
+  surroundOrbitSpeed: 10
+  surroundRadius: 3
+  distanceFromPlayer: 3
+  minTimeBetweenShots: 10
+  maxTimeBetweenShots: 15
+  projectilePrefab: {fileID: 521549819301778894, guid: 109f09f5ef962ab438a0f306e984134e, type: 3}
+  projectileSettings:
+  - {fileID: 11400000, guid: 314f35f0d97b7884cb032a50bce87590, type: 2}

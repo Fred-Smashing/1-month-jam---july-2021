@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4a00554cd5989648a9866f031fbae69, type: 3}
+  m_Name: Ship_SurroundSpawnSequenceSO
+  m_EditorClassIdentifier: 
+  weight: 55
+  allowRandomOffsets: 1
+  orderedSpawns:
+  - {fileID: 11400000, guid: b2c959b91d989424db5c2494458ad824, type: 2}
+  spawnOffsets: []
+  timeBetweenSpawns: 1.1
+  sequenceRepetitions: 9

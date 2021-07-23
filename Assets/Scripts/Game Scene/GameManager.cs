@@ -11,15 +11,18 @@ public class GameManager : MonoBehaviour
     [Header("Player"), Space]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Vector3 playerStartPos = Vector3.zero;
-    private PlayerController player;
+    [HideInInspector] public PlayerController player;
 
     [Header("Menus"), Space]
     [SerializeField] private Canvas mainMenuCanvas;
     [SerializeField] private Canvas scoreCanvas;
 
+    [Header("Music"), Space]
+    [SerializeField] private MusicManager musicManager;
+
     private TMPro.TMP_Text scoreText;
 
-    public bool gameOver = false;
+    [HideInInspector] public bool gameOver = false;
 
     private float difficultyMultiplier = 1f;
 
@@ -43,13 +46,16 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             toggleMainMenuEnabled();
             TweenToMenu();
+            musicManager.CrossfadeToTrack("menu");
+
+            mainMenuCanvas.GetComponent<RandomOneShotSound>().PlaySound();
         }
 
         if (gameOver)
         {
             if (Time.timeScale < 1)
             {
-                Time.timeScale += 0.1f * Time.deltaTime;
+                Time.timeScale += 0.2f * Time.deltaTime;
             }
             else
             {
@@ -68,16 +74,20 @@ public class GameManager : MonoBehaviour
         gameOver = false;
 
         TweenStartOfGame();
+        musicManager.CrossfadeToTrack("game");
     }
 
     public void EndGame()
     {
         var time = Time.time - timeStarted;
         var timeScore = CalculateTimeScore(time);
+        Debug.Log("Time Score: " + timeScore);
 
         var enemyScore = CalculateEnemyScore(enemiesDestroyed);
+        Debug.Log("Enemy Score: " + enemyScore);
 
         var score = Mathf.Round(timeScore + enemyScore * difficultyMultiplier);
+        Debug.Log("Total Score: " + score);
 
         scoreText.text = string.Format("Score: {0}", score);
 
@@ -87,6 +97,7 @@ public class GameManager : MonoBehaviour
 
         spawner.StopAllCoroutines();
         spawner.CleanupLeftoverObjects();
+        musicManager.CrossfadeToTrack();
     }
 
     private float CalculateTimeScore(float time)
@@ -100,9 +111,14 @@ public class GameManager : MonoBehaviour
 
     private float CalculateEnemyScore(int enemies)
     {
-        var scaling = Mathf.Sqrt(1 / Mathf.Sqrt(enemies * Mathf.Sqrt(enemies)));
+        if (enemies >= 0)
+        {
+            return enemiesDestroyed * 10;
+        }
 
-        return enemiesDestroyed * (10 * scaling); 
+        var scaling = enemies * 10 + (10 * (10 / enemies));
+
+        return enemiesDestroyed * (10 * scaling);
     }
 
     private void TweenStartOfGame()

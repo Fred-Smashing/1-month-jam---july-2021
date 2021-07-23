@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790d6e59e88d8e84486495b8ee5b8777, type: 3}
   m_Name: T_SingleSpawnTestSO
   m_EditorClassIdentifier: 
-  TimeBetweenSpawnSequences: 1
+  TimeBetweenSpawnSequences: 10
   possibleSpawns:
-  - {fileID: 11400000, guid: dd98292e55d05f944ab569d572fe8166, type: 2}
+  - {fileID: 11400000, guid: 1ee826fe3ccbc58499cb90193d1c43eb, type: 2}

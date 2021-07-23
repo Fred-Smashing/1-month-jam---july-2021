@@ -18,8 +18,6 @@ public class EnemyController : MonoBehaviour
 
     private bool isDead = false;
 
-    private EnemyType enemyType = EnemyType.SIMPLE;
-
     public enum EnemyType
     {
         SIMPLE,//comes on screen and stays in one spot shooting projectiles
@@ -33,12 +31,17 @@ public class EnemyController : MonoBehaviour
         settings = _settings;
 
         InitMeshDrawingComponents();
-
         oneShotPlayer = GetComponent<RandomOneShotSound>();
+        gameManager = FindObjectOfType<GameManager>();
+
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        transform.localScale = settings.shipScale;
+
+        originPos = transform.position;
+        circularSpeed = (2 * Mathf.PI) / settings.surroundOrbitSpeed;
 
         StartCoroutine(ShotTimer(Random.Range(settings.minTimeBetweenShots, settings.maxTimeBetweenShots)));
-
-        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void InitMeshDrawingComponents()
@@ -50,7 +53,13 @@ public class EnemyController : MonoBehaviour
     }
 
     float continuousTime = 0;
+    public float angle = 0;
     bool hasBeenOnScreen = false;
+
+    GameObject player = null;
+    Vector3 originPos = Vector3.zero;
+
+    private float circularSpeed;
     private void Update()
     {
         if (!isDead)
@@ -83,11 +92,22 @@ public class EnemyController : MonoBehaviour
                     break;
 
                 case EnemyType.SURROUND:
+                    if (player != null)
+                    {
+                        originPos = Vector3.Lerp(originPos, player.transform.position, settings.surroundSpeed * Time.deltaTime);
+
+                        angle += circularSpeed * Time.deltaTime;
+
+                        var circle = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * settings.surroundRadius;
+
+                        transform.position = originPos + circle;
+
+                        transform.right = -(originPos - transform.position);
+                    }
+
                     break;
 
                 case EnemyType.ADVANCED:
-                    var player = GameObject.FindGameObjectWithTag("Player");
-
                     if (player != null)
                     {
                         var playerY = player.transform.position.y;
@@ -192,6 +212,16 @@ public class EnemyController : MonoBehaviour
         pos = new Vector3(0, sin, 0);
 
         return pos;
+    }
+
+    private float AngleSin(float angle)
+    {
+        return Mathf.Sin(angle);
+    }
+
+    private float AngleCosine(float angle)
+    {
+        return Mathf.Cos(angle);
     }
 
     private bool PositionOutsideOfScreen(Vector2 position)

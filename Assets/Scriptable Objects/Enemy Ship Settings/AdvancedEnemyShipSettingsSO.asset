@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: AdvancedEnemyShipSettingsSO
   m_EditorClassIdentifier: 
   enemyType: 3
+  shipScale: {x: 1, y: 1}
   deathSpeed: 0.1
   simpleShipTargetX: 5
   simpleShipSpeed: 1
   simpleShipMoveDistane: 1
   fastShipSpeed: 10
+  surroundSpeed: 1
+  surroundOrbitSpeed: 1
+  surroundRadius: 1
   distanceFromPlayer: 6
-  minTimeBetweenShots: 1
-  maxTimeBetweenShots: 2
+  minTimeBetweenShots: 3
+  maxTimeBetweenShots: 5
   projectilePrefab: {fileID: 521549819301778894, guid: 109f09f5ef962ab438a0f306e984134e, type: 3}
   projectileSettings:
-  - {fileID: 11400000, guid: 9946ba22a83bdb94a9a3289b7687c1d9, type: 2}
+  - {fileID: 11400000, guid: 55100a3b3d00ce246895ed4ccd0e422b, type: 2}

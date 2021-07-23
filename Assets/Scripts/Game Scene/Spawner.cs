@@ -65,7 +65,7 @@ public class Spawner : MonoBehaviour
         coroutineFinished = true;
     }
 
-    [SerializeField] private WeightedSpawnSequenceSO previousSequence = null;
+    [SerializeField] private List<WeightedSpawnSequenceSO> previousSequences = new List<WeightedSpawnSequenceSO>();
     private List<(WeightedSpawnSequenceSO, int)> selectableSpawns = new List<(WeightedSpawnSequenceSO, int)>();
     private void SelectSpawnSequence()
     {
@@ -80,7 +80,7 @@ public class Spawner : MonoBehaviour
         {
             for (int i = selectableSpawns.Count - 1; i >= 0; i--)
             {
-                if (selectableSpawns[i].Item1 == previousSequence)
+                if (previousSequences.Contains(selectableSpawns[i].Item1))
                 {
                     selectableSpawns.RemoveAt(i);
                 }
@@ -93,7 +93,13 @@ public class Spawner : MonoBehaviour
 
     private void StartSpawnSequence(WeightedSpawnSequenceSO spawnSequence)
     {
-        previousSequence = spawnSequence;
+        previousSequences.Add(spawnSequence);
+
+        if (previousSequences.Count > 3)
+        {
+            previousSequences.RemoveAt(0);
+        }
+
         spawnSequence.StartSpawnSequence(this);
     }
 

@@ -407,6 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e18adf588c0164d9ed2cdd40feabd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceAttenuation: 1
+  timeBasedPitch: 1
 --- !u!1 &5075051385175045879
 GameObject:
   m_ObjectHideFlags: 0

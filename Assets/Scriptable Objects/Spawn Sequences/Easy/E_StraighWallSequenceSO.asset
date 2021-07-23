@@ -17,11 +17,11 @@ MonoBehaviour:
   orderedSpawns:
   - {fileID: 11400000, guid: 7692f93dfc54296459fc9bd367921251, type: 2}
   spawnOffsets:
-  - {x: 10, y: -2.5}
-  - {x: 8, y: -1.5}
-  - {x: 6, y: -0.5}
-  - {x: 4, y: 0.5}
-  - {x: 2, y: 1.5}
+  - {x: 1, y: -2.5}
+  - {x: 0.82, y: -1.5}
+  - {x: 0.62, y: -0.5}
+  - {x: 0.42, y: 0.5}
+  - {x: 0.22, y: 1.5}
   - {x: 0, y: 2.5}
-  timeBetweenSpawns: 1
+  timeBetweenSpawns: 0.1
   sequenceRepetitions: 6

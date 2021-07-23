@@ -14,11 +14,17 @@ public class Projectile : MonoBehaviour
 
     private GameManager gameManager;
 
+    private Vector2 directedDirection = Vector2.zero;
+
+    private Transform playerTransform;
+
     public enum ProjectileType
     {
         STRAIGHT,
         SINE,
-        CIRCULAR
+        CIRCULAR,
+        DIRECTED,
+        HOMING
     }
 
     public void Init(ProjectileSettingsSO projectileSettings, GameObject _creator)
@@ -38,6 +44,18 @@ public class Projectile : MonoBehaviour
         circularSpeed = (2 * Mathf.PI) / settings.circleTime;
 
         gameManager = FindObjectOfType<GameManager>();
+
+        playerTransform = gameManager.player.gameObject.transform;
+
+        if (settings.projectileType == ProjectileType.DIRECTED)
+        {
+            directedDirection = (playerTransform.position - transform.position).normalized;
+        }
+
+        if (settings.projectileType == ProjectileType.HOMING)
+        {
+            StartCoroutine(homingTimer(settings.homingTime));
+        }
     }
 
     private void SetSprite()
@@ -59,6 +77,8 @@ public class Projectile : MonoBehaviour
     float continuousTime = 0;
     public float angle = 0;
     float circularSpeed;
+    Vector3 homingTarget = Vector2.zero;
+    bool homing = true;
     private void Update()
     {
         switch (settings.projectileType)
@@ -87,9 +107,38 @@ public class Projectile : MonoBehaviour
                     angle -= circularSpeed * Time.deltaTime;
                 }
 
-                var circularMove = CirularProjectileMovement(cOriginPos, angle, settings.circleRadius);
+                transform.position = CirularProjectileMovement(cOriginPos, angle, settings.circleRadius);
+                break;
 
-                transform.position = circularMove;
+            case ProjectileType.DIRECTED:
+                transform.position = StraightProjectileMovement(directedDirection, settings.speed);
+
+                if (!gameManager.gameOver)
+                {
+                    DestroyOffScreenDirected();
+                }
+                break;
+
+            case ProjectileType.HOMING:
+                if (playerTransform != null)
+                {
+                    var dist = Vector3.Distance(playerTransform.position, transform.position);
+                    dist = Mathf.Clamp(dist, 0.5f, 1);
+
+                    homingTarget = Vector3.Lerp(homingTarget, playerTransform.position, (settings.homingSpeed * dist) * Time.deltaTime);
+
+                    if (homing)
+                    {
+                        directedDirection = (homingTarget - transform.position).normalized;
+                    }
+                }
+
+                transform.position = StraightProjectileMovement(directedDirection, settings.speed);
+
+                if (!gameManager.gameOver)
+                {
+                    DestroyOffScreenDirected();
+                }
                 break;
         }
 
@@ -163,6 +212,29 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    private void DestroyOffScreenDirected()
+    {
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+        if (directedDirection.x > 0 && screenPos.x > Screen.width + bufferDistance)
+        {
+            Destroy(this.gameObject);
+        }
+        else if (directedDirection.x < 0 && screenPos.x < -bufferDistance)
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (directedDirection.y > 0 && screenPos.y > Screen.height + bufferDistance)
+        {
+            Destroy(this.gameObject);
+        }
+        else if (directedDirection.y < 0 && screenPos.y < -bufferDistance)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject != creator && creator != null && !gameManager.gameOver)
@@ -194,5 +266,12 @@ public class Projectile : MonoBehaviour
         particleObject.GetComponent<ParticleSystem>().startColor = settings.projectileColor;
 
         particleObject.GetComponent<AudioSource>().pitch = Random.RandomRange(0.8f, 1.2f);
+    }
+
+    private IEnumerator homingTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        homing = false;
     }
 }

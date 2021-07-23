@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a00554cd5989648a9866f031fbae69, type: 3}
   m_Name: M_Alt_CircularSpawnSequenceSO
   m_EditorClassIdentifier: 
-  weight: 5
+  weight: 50
+  allowRandomOffsets: 0
   orderedSpawns:
   - {fileID: 11400000, guid: 0f460530ee929874896b21a135a2e75e, type: 2}
   spawnOffsets: []

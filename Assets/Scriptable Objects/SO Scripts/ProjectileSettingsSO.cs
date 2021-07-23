@@ -26,4 +26,8 @@ public class ProjectileSettingsSO : ScriptableObject
     public float circleRadius = 1;
     public bool circleDirection = true;
     public float circleTime = 0.1f;
+
+    [Header("Homing Settings")]
+    public float homingSpeed = 3;
+    public float homingTime = 5;
 }

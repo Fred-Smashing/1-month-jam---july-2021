@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: H_DirectedProjectileSettings
   m_EditorClassIdentifier: 
   projectileSprite: {fileID: 0}
-  projectileColor: {r: 1, g: 0.77254903, b: 0.09803922, a: 1}
+  projectileColor: {r: 1, g: 0.9538346, b: 0.5330188, a: 1}
   trailLength: 0.2
   scale: {x: 0.15, y: 0.15}
   direction: {x: 0, y: 0}

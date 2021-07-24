@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerProjectilesSettingsSO
   m_EditorClassIdentifier: 
   projectileSprite: {fileID: -2413806693520163455, guid: 1efee26f1275631419d556564793f213, type: 3}
-  projectileColor: {r: 0, g: 1, b: 0.8156863, a: 1}
+  projectileColor: {r: 0.5882353, g: 1, b: 0.96809095, a: 1}
   trailLength: 0.1
   scale: {x: 0.1, y: 0.1}
   direction: {x: 1, y: 0}
@@ -24,3 +24,5 @@ MonoBehaviour:
   circleRadius: 1
   circleDirection: 1
   circleTime: 1
+  homingSpeed: 3
+  homingTime: 5

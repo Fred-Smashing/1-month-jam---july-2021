@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetButtonDown("Jump"))
                 {
-                    Shoot(playerSettings.projectilePrefab, inputVector);
+                    Shoot(playerSettings.projectilePrefab);
                 }
 
                 MovePlayer(inputVector, playerSettings.moveSpeed, playerSettings.acceleration, Time.deltaTime);
@@ -106,10 +106,8 @@ public class PlayerController : MonoBehaviour
         transform.position = move;
     }
 
-    private void Shoot(GameObject projectilePrefab, Vector2 inputVector)
+    private void Shoot(GameObject projectilePrefab)
     {
-        //DecreaseSize(playerSettings.shotCost);
-
         var projectileObject = Instantiate(projectilePrefab);
         projectileObject.transform.SetParent(null);
         projectileObject.transform.position = shotPosition.position;
